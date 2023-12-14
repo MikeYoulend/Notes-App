@@ -33,3 +33,22 @@ notesContainer.addEventListener("click", function (e) {
 		});
 	}
 });
+
+document.addEventListener("keydown", (event) => {
+	if (event.key === "Enter" && event.target.classList.contains("input-box")) {
+		// Crea un'interruzione di linea
+		const selection = window.getSelection();
+		const range = selection.getRangeAt(0);
+		const br = document.createElement("br");
+		range.deleteContents();
+		range.insertNode(br);
+
+		// Crea un nuovo range dopo l'interruzione di linea e imposta il cursore lì
+		range.setStartAfter(br);
+		range.setEndAfter(br);
+		selection.removeAllRanges();
+		selection.addRange(range);
+
+		event.preventDefault();
+	}
+});
